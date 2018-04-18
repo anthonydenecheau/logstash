@@ -1,0 +1,22 @@
+language: java
+cache:
+  directories:
+  - "$HOME/.m2"
+jdk:
+- oraclejdk8
+sudo: required
+services:
+- docker
+notifications:
+  email:
+  - anthony.denecheau@gmail.com
+  on_success: always
+  on_failure: always
+env:
+  global:
+  matrix:
+  - SCC_DOCKER_IMAGE=anthonydenecheau/scc-fluentd:version1.0
+script:
+- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+- mvn clean package docker:build
+- docker push $SCC_DOCKER_IMAGE

@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "AWJSeLHi7j4Fpez5_kmr",
+    "_type": "search",
+    "_source": {
+      "title": "agria",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "@log_name",
+        "log"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"AWJNUNZBc2pDU4K3r-_q\",\"highlightAll\":true,\"version\":true,\"query\":{\"match_all\":{}},\"filter\":[{\"meta\":{\"index\":\"AWJNUNZBc2pDU4K3r-_q\",\"negate\":false,\"disabled\":false,\"alias\":null,\"type\":\"phrase\",\"key\":\"@log_name\",\"value\":\"scc.agriaservice\"},\"query\":{\"match\":{\"@log_name\":{\"query\":\"scc.agriaservice\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}]}"
+      }
+    }
+  }
+]
