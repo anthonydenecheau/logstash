@@ -1,16 +1,22 @@
 # fluentd/Dockerfile
-# or v1.0-onbuild
-FROM fluent/fluentd:v0.14-onbuild
+# or v1.0-debian-onbuild
+FROM fluent/fluentd:v0.14-debian-onbuild
 
 # below RUN includes plugin as examples elasticsearch is not required
 # you may customize including plugins as you wish
-RUN apk add --update --virtual .build-deps \
-        sudo build-base ruby-dev \
+
+RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev" \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends $buildDeps \
  && sudo gem install \
         fluent-plugin-elasticsearch \
  && sudo gem sources --clear-all \
- && apk del .build-deps \
- && rm -rf /var/cache/apk/* \
+ && SUDO_FORCE_REMOVE=yes \
+    apt-get purge -y --auto-remove \
+                  -o APT::AutoRemove::RecommendsImportant=false \
+                  $buildDeps \
+ && rm -rf /var/lib/apt/lists/* \
            /home/fluent/.gem/ruby/2.3.0/cache/*.gem
+           
 RUN rm /fluentd/etc/fluent.conf
 COPY ./fluent.conf /fluentd/etc 
