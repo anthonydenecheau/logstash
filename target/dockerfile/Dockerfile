@@ -1,20 +1,12 @@
 # fluentd/Dockerfile
-FROM fluent/fluentd:v0.12-debian-onbuild
+FROM fluent/fluentd:latest-onbuild
 
-# below RUN includes plugin as examples elasticsearch is not required
-# you may customize including plugins as you wish
+#RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "2.8.6"]
+RUN gem install fluent-plugin-secure-forward
+RUN gem install fluent-plugin-elasticsearch
 
-RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev" \
- && apt-get update \
- && apt-get install -y --no-install-recommends $buildDeps \
- && sudo gem install \
-        fluent-plugin-elasticsearch \
- && sudo gem sources --clear-all \
- && SUDO_FORCE_REMOVE=yes \
-    apt-get purge -y --auto-remove \
-                  -o APT::AutoRemove::RecommendsImportant=false \
-                  $buildDeps \
- && rm -rf /var/lib/apt/lists/* \
-           /home/fluent/.gem/ruby/2.3.0/cache/*.gem
-RUN rm fluentd/etc/fluent.conf
-COPY ./fluent.conf /fluentd/etc/ 
+ADD fluentd.conf /home/fluent
+EXPOSE 24224
+EXPOSE 9800
+
+CMD fluentd -c /home/fluent/fluentd.conf -vv
