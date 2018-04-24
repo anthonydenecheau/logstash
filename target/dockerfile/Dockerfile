@@ -1,10 +1,9 @@
-# fluentd/Dockerfile
-FROM fluent/fluentd:latest-onbuild
-
-#RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "2.8.6"]
+FROM fluent/fluentd
+USER fluent
+WORKDIR /home/fluent
+ENV PATH /home/fluent/.gem/ruby/2.3.0/bin:$PATH
 RUN gem install fluent-plugin-secure-forward
 RUN gem install fluent-plugin-elasticsearch
-
 ADD fluentd.conf /home/fluent
 EXPOSE 24224
 EXPOSE 9800
