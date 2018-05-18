@@ -4,16 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.scc</groupId>
-    <artifactId>fluentd</artifactId>
+    <artifactId>logstash</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Fluentd</name>
-    <description>Maven wrapper to build our custom fluentd instance</description>
+    <name>Logstash</name>
+    <description>Maven wrapper to build our custom logstash instance</description>
 
     <!--Docker build Config-->
     <properties>
-        <docker.image.name>anthonydenecheau/scc-fluentd</docker.image.name>
+        <docker.image.name>anthonydenecheau/scc-logstash</docker.image.name>
         <docker.image.tag>version1.0</docker.image.tag>
     </properties>
 

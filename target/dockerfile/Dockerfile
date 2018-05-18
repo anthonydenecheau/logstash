@@ -1,6 +1,6 @@
-# fluentd/Dockerfile
-FROM fluent/fluentd
-RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "2.8.6"]
-
-RUN rm /fluentd/etc/fluent.conf
-COPY ./fluent.conf /fluentd/etc 
+# logstach/Dockerfile
+FROM docker.elastic.co/logstash/logstash:6.2.2
+RUN rm -f /usr/share/logstash/pipeline/logstash.conf
+ADD pipeline/ /usr/share/logstash/pipeline/
+ADD config/ /usr/share/logstash/config/
+COPY ./logstash.conf /usr/share/logstash/pipeline/
